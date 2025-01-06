@@ -22,8 +22,20 @@
         <h3 class="title">ADMINISTRACIÓN GUBERNAMENTAL DE INGRESOS PÚBLICOS</h3>
         <h3 class="title">“Año del 30° Aniversario de la Autonomía de la Ciudad de Buenos Aires"</h3>
         
-        <h3 class="title">DGR / AGIP - REPORTE MENSUAL DE GASTOS DE MOVILIDAD - v.2.0 - actualizado 06-01-2025</h3>
-    </div>
+         
+        <h3 class="title" id="report-title">DGR / AGIP - REPORTE MENSUAL DE GASTOS DE MOVILIDAD - v.2.O - actualizado 06-01-2025</h3>
+
+        <script>
+         const monthNames = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+         const currentDate = new Date();
+         const currentMonth = monthNames[currentDate.getMonth()];
+         const currentYear = currentDate.getFullYear();
+         document.getElementById('report-title').innerText = `DGR / AGIP - REPORTE DE GASTOS DE MOVILIDAD PARA EL MES DE ${currentMonth} DE ${currentYear}`;
+        </script>
+
+
+
+      </div>
 
 
 <style>
@@ -44,11 +56,11 @@
 
 <br /> 
 
-<h3>Medio de transporte utilizado: Público, desde CABA a CABA</h3>
+<h3>Medio utilizado: Transporte Público, desde CABA a CABA</h3>
   
   <form id="inputForm">
     <label for="department">Departamento:</label>
-    <input type="text" id="department" required value = "A"><br>
+    <input type="text" id="department" required value = "A" title = "Campo alfanumérico" ><br>
 
     <label for="sector">División:</label>
     <input type="number" id="sector" required value = "1" ><br>
@@ -56,33 +68,44 @@
     <label for="fullName">Apellido y nombre:</label>
     <input type="text" id="fullName" required><br>
 
-    <label for="dni">D.N.I (sin puntos):</label>
-    <input type="number" id="dni" required min="1" ><br>
+    <label for="dni">D.N.I:</label>
+    <input type="number" id="dni" required title = "Ingrese un número sin puntos" ><br>
 
-    <label for="travelValue">Valor del viaje (sin puntos ni decimales) : $ </label>
-    <input type="number" id="travelValue" step="1" required min="1" step="1"><br>
+    <label for="travelValue">Valor del viaje (sin puntos, ni decimales) : $ </label>
+    <input type="number" id="travelValue" step="1" required min="1" step="1" title = "Confirme el valor actual vigente del viaje, sin centavos"><br>
 
     <label for="tripsPerDay">Cantidad de viajes por día:</label>
-    <input type="number" id="tripsPerDay" required value="4"><br>
+    <input type="number" id="tripsPerDay" required value="4" title = "Sin incluir los viajes en Taxi" ><br>
 
+    
+    
     <label for="month">Mes (1-12):</label>
-    <input type="number" id="month" min="1" max="12" required><br>  
-    <label for="year">Año:</label>
-    <input type="number" id="year" required value="2025"><br>
+    <input type="number" id="month" min="1" max="12" required title="Mes para el cual se generará el reporte"><br>
+    <script>
+    document.getElementById('month').value = new Date().getMonth() + 1;   // sumo 1 porque enero es 0, febrero es 1
+    </script>
 
-    <label for="holidayInput">Total de días feriados, asuetos, licencias y ausencias etc., en el mes (separados por comas, excluidos sábados y domingos, no permite ingreso de un rango de fechas; ej. válido: 4,5,10,25):</label>
-    <input type="text" id="holidayInput" required value="0"><br>
+
+    <label for="year">Año:</label>
+    <input type="number" id="year" required title="Año para el cual se generará el reporte"><br>
+    <script>
+    document.getElementById('year').value = new Date().getFullYear(); //no utilizar getYear() devuelve el año desde 1900 (por ejemplo, 125 para el año 2025)
+    </script>
+
+
+    <label for="holidayInput">Total de días feriados, asuetos, licencias y ausencias, etc., en el mes (separados por comas; excluidos sábados y domingos; no se permite el ingreso de un rango de fechas; ej. válido: 4,5,10):</label>
+    <input type="text" id="holidayInput" required value="0" title="los sábados y domingos son excluidos automáticamente"><br>
 
     <h3>Gastos en Taxi</h3>
-    <label for="taxiDays">Detalle de cada día en el mes (separado por coma) en que se utilizó Taxi (ej.: 1,2,3):</label>
-    <input type="text" id="taxiDays" placeholder="Ej.: 1,2,3" required value="0"><br>
+    <label for="taxiDays">Detalle de cada día en el mes (separados por comas) en que se utilizó Taxi (Ej.: 4,6,9):</label>
+    <input type="text" id="taxiDays" required value="0"><br>
 
     <label for="taxiTrips">Total de viajes en Taxi realizados en el mes:  </label>
     <input type="number" id="taxiTrips" required value="0"><br>
 
-    <label for="taxiMotives">Destinos y motivos de los viajes en Taxi realizados:</label>
-    <textarea id="taxiMotives" rows="2" cols="123" maxlength="246" placeholder=""></textarea><br>
-    <label for="taxiCost">Costo total de viajes en Taxi en el mes (ingrese el importe calculado, sin puntos ni comas):   $</label>
+    <label for="taxiMotives">Destinos y motivos de los viajes realizados en Taxi:</label>
+    <textarea id="taxiMotives" rows="2" cols="123" maxlength="246" placeholder="" title = "Permite ingresar texto en hasta 2 filas, con un ancho máximo de hasta 123 caracteres por fila, dando un total máximo de 246 caracteres."></textarea><br>
+    <label for="taxiCost">Costo total de viajes en Taxi del mes (ingrese el importe calculado, sin puntos ni comas):   $</label>
     <input type="number" id="taxiCost" required value="0"><br>
 
     <button type="submit">Calcula el total de viáticos del mes</button>
@@ -191,9 +214,9 @@
         <p>Total de viajes en Taxi:   ${taxiTrips}</p>
         <p>Total de gastos en Taxi:   $${taxiCost.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
         <p>Total general de gastos de movilidad del mes:   $${totalExpenses.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-        <p>Recibí conforme el importe de $  ${totalExpenses.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${"(Son Pesos"} ${numberToWords(totalExpenses) + " - - "})</p>
-        <p>Firmado por: ${fullName}</p>
-        <p>CABA, ${new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <p>Recibí conforme el importe de $  ${totalExpenses.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${"(Son Pesos"} ${numberToWords(totalExpenses) + " . - - - - "})</p>
+        <p>Firmado por :  ${fullName}</p>
+        <p>Ciudad Autónoma de Buenos Aires, ${new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
       `;
     });
   </script>
