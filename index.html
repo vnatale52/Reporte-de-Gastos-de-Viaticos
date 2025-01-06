@@ -1,8 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title> Gastos de Movilidad </title>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Mensual</title>
+    <style>
+        .centered {
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+        }
+        .title {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="centered">
+        <img src="LogoCaba.jpg" width="50" height="40" alt="Logo de la CABA">
+        <h3 class="title">GOBIERNO DE LA CIUDAD AUTÓNOMA DE BUENOS AIRES</h3>
+        <h3 class="title">ADMINISTRACIÓN GUBERNAMENTAL DE INGRESOS PÚBLICOS</h3>
+        <h3 class="title">“Año del 30° Aniversario de la Autonomía de la Ciudad de Buenos Aires"</h3>
+        
+        <h3 class="title">DGR / AGIP - REPORTE MENSUAL DE GASTOS DE MOVILIDAD - v.2.O - actualizado 06-01-2025</h3>
+    </div>
+
+
+<style>
     .row {
       display: flex;
       justify-content: flex-start;
@@ -16,15 +40,11 @@
     #holidayInput {
       width: 520px;
     }
-  </style>
-</head>
-<body>
-    <span style="display: inline-block;"> 
-    <img src="LogoCaba.jpg" width="40" height="40" alt="Logo de la CABA">
-    <h3 style="display: inline; margin-left: 10px;"> DGR/AGIP -   REPORTE MENSUAL DE GASTOS DE MOVILIDAD   -  v. 2.O - actualizado el 05-01-2025</h3>
-  </span>
+  </style> 
 
-  <h3>Medio de transporte utilizado: Público, desde CABA a CABA</h3>
+<br /> 
+
+<h3>Medio de transporte utilizado: Público, desde CABA a CABA</h3>
   
   <form id="inputForm">
     <label for="department">Departamento:</label>
@@ -50,7 +70,7 @@
     <label for="year">Año:</label>
     <input type="number" id="year" required value="2025"><br>
 
-    <label for="holidayInput">Días feriados, licencias, etc. (separados por comas, excluidos sábados y domingos, no permite ingresar un rango de fechas; ej. válido: 4,5,10,25):</label>
+    <label for="holidayInput">Total de días feriados, asuetos, licencias y ausencias etc., en el mes (separados por comas, excluidos sábados y domingos, no permite ingreso de un rango de fechas; ej. válido: 4,5,10,25):</label>
     <input type="text" id="holidayInput" required value="0"><br>
 
     <h3>Gastos en Taxi</h3>
@@ -60,10 +80,9 @@
     <label for="taxiTrips">Total de viajes en Taxi realizados en el mes:  </label>
     <input type="number" id="taxiTrips" required value="0"><br>
 
-   <label for="taxiMotives">Destinos y motivos de los viajes en Taxi realizados:</label>
-   <textarea id="taxiMotives" rows="2" cols="100" placeholder=""></textarea><br>
-
-    <label for="taxiCost">Costo total de viajes en Taxi en el mes (ingresar importe calculado, sin puntos ni comas):   $</label>
+    <label for="taxiMotives">Destinos y motivos de los viajes en Taxi realizados:</label>
+    <textarea id="taxiMotives" rows="2" cols="123" maxlength="246" placeholder=""></textarea><br>
+    <label for="taxiCost">Costo total de viajes en Taxi en el mes (ingrese el importe calculado, sin puntos ni comas):   $</label>
     <input type="number" id="taxiCost" required value="0"><br>
 
     <button type="submit">Calcula el total de viáticos del mes</button>
@@ -160,7 +179,7 @@
       const totalExpenses = totalPublicTransport + taxiCost;
 
       const output = document.getElementById('output');
-      output.innerHTML = `<h4>Desglose de transporte público:</h4>`;
+      output.innerHTML = `<h4>Detalle diario para el transporte público:</h4>`;
       printArrayElements(workingDaysArray, travelValue, tripsPerDay);
 
       const holidayCount = holidays.filter(h => h !== 0).length;
